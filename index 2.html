@@ -1,0 +1,1335 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>GrowBibleGroup — Daily Devotions for Church Cell Groups</title>
+    <meta name="description"
+      content="GrowBibleGroup keeps your church cell group connected through daily devotionals, Scripture, and real accountability — all in one simple app." />
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+      href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;0,700;1,400;1,600&family=DM+Sans:wght@300;400;500;600&display=swap"
+      rel="stylesheet">
+    <style>
+      *,
+      *::before,
+      *::after {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+      }
+
+      :root {
+        --navy: #1A1A2E;
+        --navy-mid: #252540;
+        --gold: #E8A848;
+        --gold-light: #F5C878;
+        --cream: #F9F7F4;
+        --cream-dark: #F0EDE8;
+        --blue: #4A6FA5;
+        --blue-light: #EEF2F9;
+        --gray: #9999B3;
+        --text: #2A2A3E;
+        --text-light: #555570;
+      }
+
+      html {
+        scroll-behavior: smooth;
+      }
+
+      body {
+        font-family: 'DM Sans', sans-serif;
+        background: var(--cream);
+        color: var(--text);
+        overflow-x: hidden;
+      }
+
+      /* ─── NAV ─── */
+      nav {
+        position: fixed;
+        top: 0;
+        left: 0;
+        right: 0;
+        z-index: 100;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 18px 48px;
+        background: rgba(26, 26, 46, 0.92);
+        backdrop-filter: blur(16px);
+        border-bottom: 1px solid rgba(232, 168, 72, 0.15);
+      }
+
+      .nav-logo {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: #fff;
+        letter-spacing: -0.3px;
+      }
+
+      .nav-logo span {
+        color: var(--gold);
+      }
+
+      .nav-links {
+        display: flex;
+        gap: 36px;
+        list-style: none;
+      }
+
+      .nav-links a {
+        color: rgba(255, 255, 255, 0.7);
+        text-decoration: none;
+        font-size: 14px;
+        font-weight: 500;
+        transition: color 0.2s;
+      }
+
+      .nav-links a:hover {
+        color: var(--gold);
+      }
+
+      .nav-cta {
+        background: var(--gold);
+        color: var(--navy);
+        padding: 10px 24px;
+        border-radius: 50px;
+        font-size: 14px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: background 0.2s, transform 0.15s;
+      }
+
+      .nav-cta:hover {
+        background: var(--gold-light);
+        transform: translateY(-1px);
+      }
+
+      /* ─── HERO ─── */
+      .hero {
+        min-height: 100vh;
+        background: var(--navy);
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        text-align: center;
+        padding: 120px 24px 80px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      /* Decorative circles */
+      .hero::before {
+        content: '';
+        position: absolute;
+        width: 700px;
+        height: 700px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(232, 168, 72, 0.12) 0%, transparent 70%);
+        top: -200px;
+        right: -200px;
+        pointer-events: none;
+      }
+
+      .hero::after {
+        content: '';
+        position: absolute;
+        width: 500px;
+        height: 500px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(74, 111, 165, 0.15) 0%, transparent 70%);
+        bottom: -150px;
+        left: -150px;
+        pointer-events: none;
+      }
+
+      .hero-badge {
+        display: inline-flex;
+        align-items: center;
+        gap: 8px;
+        background: rgba(232, 168, 72, 0.15);
+        border: 1px solid rgba(232, 168, 72, 0.3);
+        color: var(--gold);
+        padding: 8px 20px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 600;
+        letter-spacing: 1.5px;
+        text-transform: uppercase;
+        margin-bottom: 28px;
+        animation: fadeUp 0.6s ease both;
+      }
+
+      .hero h1 {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(52px, 8vw, 96px);
+        font-weight: 700;
+        line-height: 1.0;
+        color: #fff;
+        letter-spacing: -1px;
+        margin-bottom: 12px;
+        animation: fadeUp 0.6s 0.1s ease both;
+      }
+
+      .hero h1 em {
+        font-style: italic;
+        color: var(--gold);
+      }
+
+      .hero-sub {
+        font-size: clamp(16px, 2.5vw, 20px);
+        color: rgba(255, 255, 255, 0.6);
+        max-width: 560px;
+        line-height: 1.65;
+        margin: 20px auto 48px;
+        font-weight: 300;
+        animation: fadeUp 0.6s 0.2s ease both;
+      }
+
+      .hero-actions {
+        display: flex;
+        gap: 16px;
+        align-items: center;
+        flex-wrap: wrap;
+        justify-content: center;
+        animation: fadeUp 0.6s 0.3s ease both;
+      }
+
+      .btn-primary {
+        background: var(--gold);
+        color: var(--navy);
+        padding: 16px 40px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 700;
+        text-decoration: none;
+        transition: all 0.2s;
+        display: flex;
+        align-items: center;
+        gap: 8px;
+      }
+
+      .btn-primary:hover {
+        background: var(--gold-light);
+        transform: translateY(-2px);
+        box-shadow: 0 12px 40px rgba(232, 168, 72, 0.35);
+      }
+
+      .btn-ghost {
+        color: rgba(255, 255, 255, 0.75);
+        padding: 16px 32px;
+        border-radius: 50px;
+        font-size: 16px;
+        font-weight: 500;
+        text-decoration: none;
+        border: 1px solid rgba(255, 255, 255, 0.2);
+        transition: all 0.2s;
+      }
+
+      .btn-ghost:hover {
+        border-color: rgba(255, 255, 255, 0.5);
+        color: #fff;
+      }
+
+      .hero-note {
+        margin-top: 24px;
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.35);
+        animation: fadeUp 0.6s 0.4s ease both;
+      }
+
+      /* Mock phone */
+      .hero-phone {
+        margin-top: 56px;
+        width: 260px;
+        border-radius: 44px;
+        box-shadow:
+          0 48px 96px rgba(0, 0, 0, 0.55),
+          0 0 0 1px rgba(255, 255, 255, 0.06),
+          0 0 60px rgba(232, 168, 72, 0.08);
+        animation: fadeUp 0.8s 0.5s ease both;
+        display: block;
+        margin-left: auto;
+        margin-right: auto;
+      }
+
+      /* Estilos del phone-frame ya no necesarios — pero mantenidos por si acaso */
+      .phone-frame {
+        display: none;
+      }
+
+      .phone-frame {
+        width: 295px;
+        background: var(--navy-mid);
+        border-radius: 40px;
+        border: 2px solid rgba(232, 168, 72, 0.3);
+        overflow: hidden;
+        box-shadow:
+          0 40px 80px rgba(0, 0, 0, 0.5),
+          0 0 0 1px rgba(255, 255, 255, 0.05),
+          inset 0 1px 0 rgba(255, 255, 255, 0.1);
+        margin: 0 auto;
+      }
+
+      .phone-notch {
+        height: 28px;
+        background: #0d0d1e;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+      }
+
+      .phone-notch-pill {
+        width: 80px;
+        height: 10px;
+        background: #000;
+        border-radius: 10px;
+      }
+
+      .phone-screen {
+        padding: 16px 16px 0 16px;
+        min-height: 560px;
+        display: flex;
+        flex-direction: column;
+      }
+
+      .phone-header-label {
+        font-size: 9px;
+        font-weight: 700;
+        letter-spacing: 1.5px;
+        color: var(--gray);
+        text-transform: uppercase;
+        margin-bottom: 2px;
+      }
+
+      .phone-header-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 14px;
+      }
+
+      .phone-streak-bar {
+        background: rgba(232, 168, 72, 0.12);
+        border: 1px solid rgba(232, 168, 72, 0.2);
+        border-radius: 14px;
+        padding: 10px 14px;
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        margin-bottom: 14px;
+      }
+
+      .phone-streak-num {
+        font-size: 22px;
+        font-weight: 800;
+        color: var(--gold);
+        line-height: 1;
+      }
+
+      .phone-streak-label {
+        font-size: 10px;
+        color: var(--gray);
+        font-weight: 500;
+      }
+
+      .phone-card {
+        background: rgba(255, 255, 255, 0.06);
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        border-radius: 14px;
+        padding: 12px 14px;
+        margin-bottom: 10px;
+      }
+
+      .phone-card-name {
+        font-size: 11px;
+        font-weight: 600;
+        color: rgba(255, 255, 255, 0.9);
+        margin-bottom: 4px;
+      }
+
+      .phone-card-text {
+        font-size: 10px;
+        color: rgba(255, 255, 255, 0.5);
+        line-height: 1.5;
+      }
+
+      .phone-card-footer {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        margin-top: 10px;
+      }
+
+      .phone-pray-btn {
+        font-size: 14px;
+        display: flex;
+        align-items: center;
+        gap: 4px;
+      }
+
+      .phone-pray-count {
+        font-size: 10px;
+        color: var(--gray);
+      }
+
+      .phone-tab-bar {
+        display: flex;
+        justify-content: space-around;
+        padding: 10px 0 6px;
+        border-top: 1px solid rgba(255, 255, 255, 0.07);
+        margin-top: 4px;
+      }
+
+      .phone-tab {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        gap: 3px;
+        font-size: 8px;
+        color: var(--gray);
+      }
+
+      .phone-tab.active {
+        color: var(--gold);
+      }
+
+      .phone-tab-icon {
+        font-size: 16px;
+      }
+
+      /* ─── SECTION BASE ─── */
+      section {
+        padding: 100px 24px;
+      }
+
+      .container {
+        max-width: 1100px;
+        margin: 0 auto;
+      }
+
+      .section-label {
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 2px;
+        text-transform: uppercase;
+        color: var(--gold);
+        margin-bottom: 12px;
+      }
+
+      .section-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: clamp(36px, 5vw, 56px);
+        font-weight: 700;
+        line-height: 1.1;
+        color: var(--navy);
+        margin-bottom: 18px;
+      }
+
+      .section-title em {
+        font-style: italic;
+        color: var(--blue);
+      }
+
+      .section-desc {
+        font-size: 17px;
+        color: var(--text-light);
+        line-height: 1.7;
+        max-width: 540px;
+      }
+
+      /* ─── FEATURES GRID ─── */
+      .features {
+        background: var(--cream);
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 60px;
+      }
+
+      .feature-card {
+        background: #fff;
+        border-radius: 24px;
+        padding: 36px 32px;
+        border: 1px solid rgba(26, 26, 46, 0.06);
+        box-shadow: 0 2px 16px rgba(26, 26, 46, 0.04);
+        transition: transform 0.25s, box-shadow 0.25s;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-4px);
+        box-shadow: 0 12px 40px rgba(26, 26, 46, 0.1);
+      }
+
+      .feature-card.accent {
+        background: var(--navy);
+        border-color: transparent;
+      }
+
+      .feature-card.accent .feature-title {
+        color: #fff;
+      }
+
+      .feature-card.accent .feature-desc {
+        color: rgba(255, 255, 255, 0.55);
+      }
+
+      .feature-icon {
+        width: 52px;
+        height: 52px;
+        border-radius: 14px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 24px;
+        margin-bottom: 20px;
+      }
+
+      .feature-icon.gold {
+        background: rgba(232, 168, 72, 0.15);
+      }
+
+      .feature-icon.blue {
+        background: rgba(74, 111, 165, 0.12);
+      }
+
+      .feature-icon.navy {
+        background: rgba(255, 255, 255, 0.08);
+      }
+
+      .feature-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 22px;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 10px;
+      }
+
+      .feature-desc {
+        font-size: 15px;
+        color: var(--text-light);
+        line-height: 1.65;
+      }
+
+      /* ─── ROLES ─── */
+      .roles {
+        background: var(--navy);
+      }
+
+      .roles .section-title {
+        color: #fff;
+      }
+
+      .roles .section-desc {
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      .roles-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 20px;
+        margin-top: 60px;
+      }
+
+      .role-card {
+        border-radius: 24px;
+        padding: 36px 32px;
+        border: 1px solid rgba(255, 255, 255, 0.08);
+        background: rgba(255, 255, 255, 0.04);
+        position: relative;
+        overflow: hidden;
+        transition: border-color 0.3s, background 0.3s;
+      }
+
+      .role-card:hover {
+        border-color: rgba(232, 168, 72, 0.3);
+        background: rgba(255, 255, 255, 0.07);
+      }
+
+      .role-card.featured {
+        background: rgba(232, 168, 72, 0.1);
+        border-color: rgba(232, 168, 72, 0.35);
+      }
+
+      .role-badge {
+        display: inline-block;
+        font-size: 11px;
+        font-weight: 700;
+        letter-spacing: 1px;
+        text-transform: uppercase;
+        padding: 5px 14px;
+        border-radius: 50px;
+        margin-bottom: 20px;
+      }
+
+      .role-badge.free {
+        background: rgba(61, 170, 122, 0.15);
+        color: #3DAA7A;
+      }
+
+      .role-badge.paid {
+        background: rgba(232, 168, 72, 0.15);
+        color: var(--gold);
+      }
+
+      .role-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 26px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 6px;
+      }
+
+      .role-price {
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.4);
+        margin-bottom: 24px;
+      }
+
+      .role-price strong {
+        font-size: 28px;
+        font-weight: 700;
+        color: var(--gold);
+        font-family: 'DM Sans', sans-serif;
+      }
+
+      .role-features {
+        list-style: none;
+      }
+
+      .role-features li {
+        display: flex;
+        align-items: flex-start;
+        gap: 10px;
+        font-size: 14px;
+        color: rgba(255, 255, 255, 0.65);
+        margin-bottom: 10px;
+        line-height: 1.45;
+      }
+
+      .role-features li::before {
+        content: '✓';
+        color: var(--gold);
+        font-weight: 700;
+        flex-shrink: 0;
+        margin-top: 1px;
+      }
+
+      .role-trial {
+        margin-top: 24px;
+        padding: 12px 16px;
+        background: rgba(232, 168, 72, 0.1);
+        border-radius: 12px;
+        font-size: 13px;
+        color: var(--gold);
+        font-weight: 600;
+        text-align: center;
+      }
+
+      /* ─── BIBLE ─── */
+      .bible-section {
+        background: var(--cream-dark);
+      }
+
+      .bible-layout {
+        display: grid;
+        grid-template-columns: 1fr 1fr;
+        gap: 80px;
+        align-items: center;
+        margin-top: 60px;
+      }
+
+      .bible-features {
+        list-style: none;
+      }
+
+      .bible-features li {
+        display: flex;
+        gap: 16px;
+        align-items: flex-start;
+        margin-bottom: 28px;
+      }
+
+      .bible-feat-icon {
+        width: 44px;
+        height: 44px;
+        border-radius: 12px;
+        background: var(--navy);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-size: 20px;
+        flex-shrink: 0;
+      }
+
+      .bible-feat-title {
+        font-weight: 700;
+        font-size: 16px;
+        color: var(--navy);
+        margin-bottom: 4px;
+      }
+
+      .bible-feat-desc {
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.55;
+      }
+
+      .bible-visual {
+        background: var(--navy);
+        border-radius: 32px;
+        padding: 32px;
+        border: 1px solid rgba(232, 168, 72, 0.2);
+        box-shadow: 0 24px 60px rgba(26, 26, 46, 0.2);
+      }
+
+      .bible-chapter-num {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 80px;
+        font-weight: 700;
+        color: var(--gold);
+        line-height: 1;
+        margin-bottom: 4px;
+      }
+
+      .bible-book-name {
+        font-size: 13px;
+        color: var(--gray);
+        font-weight: 500;
+        margin-bottom: 24px;
+      }
+
+      .bible-verse {
+        margin-bottom: 16px;
+        display: flex;
+        gap: 8px;
+        align-items: flex-start;
+      }
+
+      .bible-verse-num {
+        font-size: 10px;
+        font-weight: 700;
+        color: var(--blue);
+        margin-top: 4px;
+        flex-shrink: 0;
+      }
+
+      .bible-verse-text {
+        font-size: 15px;
+        color: rgba(255, 255, 255, 0.85);
+        line-height: 1.65;
+        font-family: 'Cormorant Garamond', serif;
+      }
+
+      .bible-verse.highlighted .bible-verse-text {
+        background: rgba(232, 168, 72, 0.12);
+        border-radius: 6px;
+        padding: 4px 8px;
+        color: #fff;
+      }
+
+      .bible-lang-pills {
+        display: flex;
+        gap: 8px;
+        margin-top: 24px;
+      }
+
+      .bible-lang-pill {
+        padding: 6px 16px;
+        border-radius: 50px;
+        font-size: 12px;
+        font-weight: 600;
+      }
+
+      .bible-lang-pill.active {
+        background: var(--gold);
+        color: var(--navy);
+      }
+
+      .bible-lang-pill.inactive {
+        background: rgba(255, 255, 255, 0.08);
+        color: rgba(255, 255, 255, 0.5);
+      }
+
+      /* ─── HOW IT WORKS ─── */
+      .how {
+        background: #fff;
+      }
+
+      .steps-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+        gap: 32px;
+        margin-top: 60px;
+        position: relative;
+      }
+
+      .step {
+        text-align: center;
+        padding: 32px 24px;
+      }
+
+      .step-num {
+        width: 56px;
+        height: 56px;
+        border-radius: 50%;
+        background: var(--navy);
+        color: var(--gold);
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 26px;
+        font-weight: 700;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        margin: 0 auto 20px;
+      }
+
+      .step-title {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 20px;
+        font-weight: 700;
+        color: var(--navy);
+        margin-bottom: 10px;
+      }
+
+      .step-desc {
+        font-size: 14px;
+        color: var(--text-light);
+        line-height: 1.6;
+      }
+
+      /* ─── TESTIMONIALS ─── */
+      .testimonials {
+        background: var(--cream);
+      }
+
+      .testimonials-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 20px;
+        margin-top: 60px;
+      }
+
+      .testimonial {
+        background: #fff;
+        border-radius: 20px;
+        padding: 32px;
+        border: 1px solid rgba(26, 26, 46, 0.06);
+      }
+
+      .testimonial-text {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 19px;
+        font-style: italic;
+        color: var(--navy);
+        line-height: 1.5;
+        margin-bottom: 20px;
+      }
+
+      .testimonial-author {
+        font-size: 14px;
+        font-weight: 600;
+        color: var(--text-light);
+      }
+
+      .testimonial-role {
+        font-size: 12px;
+        color: var(--gray);
+        margin-top: 2px;
+      }
+
+      .stars {
+        color: var(--gold);
+        font-size: 14px;
+        margin-bottom: 16px;
+        letter-spacing: 2px;
+      }
+
+      /* ─── CTA ─── */
+      .cta-section {
+        background: var(--navy);
+        text-align: center;
+        padding: 120px 24px;
+        position: relative;
+        overflow: hidden;
+      }
+
+      .cta-section::before {
+        content: '';
+        position: absolute;
+        width: 800px;
+        height: 800px;
+        border-radius: 50%;
+        background: radial-gradient(circle, rgba(232, 168, 72, 0.08) 0%, transparent 70%);
+        top: 50%;
+        left: 50%;
+        transform: translate(-50%, -50%);
+      }
+
+      .cta-section .section-title {
+        color: #fff;
+      }
+
+      .cta-section .section-desc {
+        color: rgba(255, 255, 255, 0.5);
+        max-width: 480px;
+        margin: 0 auto 48px;
+      }
+
+      .cta-actions {
+        display: flex;
+        gap: 16px;
+        justify-content: center;
+        flex-wrap: wrap;
+      }
+
+      /* App Store btn — replaced by SVG badge */
+
+      /* ─── FOOTER ─── */
+      footer {
+        background: #0d0d1e;
+        padding: 48px 24px;
+        text-align: center;
+      }
+
+      .footer-logo {
+        font-family: 'Cormorant Garamond', serif;
+        font-size: 24px;
+        font-weight: 700;
+        color: #fff;
+        margin-bottom: 16px;
+      }
+
+      .footer-logo span {
+        color: var(--gold);
+      }
+
+      .footer-links {
+        display: flex;
+        gap: 32px;
+        justify-content: center;
+        list-style: none;
+        margin-bottom: 24px;
+        flex-wrap: wrap;
+      }
+
+      .footer-links a {
+        font-size: 13px;
+        color: rgba(255, 255, 255, 0.4);
+        text-decoration: none;
+        transition: color 0.2s;
+      }
+
+      .footer-links a:hover {
+        color: var(--gold);
+      }
+
+      .footer-copy {
+        font-size: 12px;
+        color: rgba(255, 255, 255, 0.2);
+      }
+
+      /* ─── ANIMATIONS ─── */
+      @keyframes fadeUp {
+        from {
+          opacity: 0;
+          transform: translateY(24px);
+        }
+
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      .reveal {
+        opacity: 0;
+        transform: translateY(32px);
+        transition: opacity 0.7s ease, transform 0.7s ease;
+      }
+
+      .reveal.visible {
+        opacity: 1;
+        transform: translateY(0);
+      }
+
+      /* ─── RESPONSIVE ─── */
+      @media (max-width: 768px) {
+        nav {
+          padding: 16px 24px;
+        }
+
+        .nav-links {
+          display: none;
+        }
+
+        .bible-layout {
+          grid-template-columns: 1fr;
+          gap: 40px;
+        }
+
+        .hero h1 {
+          font-size: 52px;
+        }
+      }
+    </style>
+  </head>
+
+  <body>
+
+    <!-- NAV -->
+    <nav>
+      <div class="nav-logo">Grow<span>Bible</span>Group</div>
+      <ul class="nav-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#bible">Bible</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how">How it works</a></li>
+      </ul>
+      <a href="#download" class="nav-cta">Download Free</a>
+    </nav>
+
+    <!-- HERO -->
+    <section class="hero">
+      <div class="hero-badge">🙏 Now available on iOS</div>
+      <h1>Grow <em>Together</em><br />in God's Word</h1>
+      <p class="hero-sub">
+        GrowBibleGroup keeps your church cell group connected through daily devotionals, Scripture, and real
+        accountability — all in one simple app.
+      </p>
+      <div class="hero-actions">
+        <a href="#download" class="btn-primary">
+          <span>📲</span> Download Free
+        </a>
+        <a href="#features" class="btn-ghost">See Features</a>
+      </div>
+      <p class="hero-note">Free for members · 14-day free trial for leaders</p>
+
+      <a href="#download" style="display:inline-block;margin-top:8px;">
+        <img src="img/appstoreuswhite.svg" alt="Download on the App Store"
+          style="height:44px;width:auto;opacity:0.85;filter:drop-shadow(0 2px 8px rgba(0,0,0,0.3));" />
+      </a>
+
+      <!-- Phone mockup — imagen real -->
+      <img src="img/phone-mockup.png" alt="GrowBibleGroup App" class="hero-phone" />
+    </section>
+
+    <!-- FEATURES -->
+    <section class="features" id="features">
+      <div class="container">
+        <p class="section-label reveal">Everything your group needs</p>
+        <h2 class="section-title reveal">Built for <em>real</em> church community</h2>
+        <p class="section-desc reveal">Simple enough for every member. Powerful enough for church leadership.</p>
+
+        <div class="features-grid">
+          <div class="feature-card reveal">
+            <div class="feature-icon gold">📖</div>
+            <div class="feature-title">Daily Devotional Feed</div>
+            <div class="feature-desc">Share what God is speaking to you each day. React with 🙏 to pray for your group
+              members and leave encouraging comments.</div>
+          </div>
+          <div class="feature-card accent reveal">
+            <div class="feature-icon navy">🔥</div>
+            <div class="feature-title">Streaks & Milestones</div>
+            <div class="feature-desc">Build a daily habit with devotional streaks. Celebrate milestones with your group
+              and stay accountable together.</div>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-icon blue">📣</div>
+            <div class="feature-title">Group Announcements</div>
+            <div class="feature-desc">Leaders can post and pin announcements for the group. Members stay informed about
+              events, prayer requests, and news.</div>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-icon gold">🔔</div>
+            <div class="feature-title">Push Notifications</div>
+            <div class="feature-desc">Get notified when your group posts a devotional, someone prays for you, or your
+              leader pins an important message.</div>
+          </div>
+          <div class="feature-card reveal">
+            <div class="feature-icon blue">🔒</div>
+            <div class="feature-title">Private Reflections</div>
+            <div class="feature-desc">Share your full heart. Mark your devotional as private so only you can see it,
+              while still maintaining your streak.</div>
+          </div>
+          <div class="feature-card accent reveal">
+            <div class="feature-icon navy">✍️</div>
+            <div class="feature-title">My Devotionals</div>
+            <div class="feature-desc">Review your personal journey of faith. Filter the group feed to see all your past
+              devotionals in one place.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- BIBLE -->
+    <section class="bible-section" id="bible">
+      <div class="container">
+        <div class="bible-layout">
+          <div>
+            <p class="section-label reveal">Scripture built in</p>
+            <h2 class="section-title reveal">Full Bible,<br /><em>offline</em> & free</h2>
+            <p class="section-desc reveal" style="margin-bottom:40px;">No subscription needed to read Scripture. The
+              full Bible is included with the app — no internet required.</p>
+            <ul class="bible-features">
+              <li class="reveal">
+                <div class="bible-feat-icon">🇺🇸</div>
+                <div>
+                  <div class="bible-feat-title">King James Version (KJV)</div>
+                  <div class="bible-feat-desc">Complete English Bible with all 31,102 verses available offline.</div>
+                </div>
+              </li>
+              <li class="reveal">
+                <div class="bible-feat-icon">🇲🇽</div>
+                <div>
+                  <div class="bible-feat-title">Reina-Valera 1960 (RVR1960)</div>
+                  <div class="bible-feat-desc">Complete Spanish Bible — ideal for bilingual congregations.</div>
+                </div>
+              </li>
+              <li class="reveal">
+                <div class="bible-feat-icon">🔍</div>
+                <div>
+                  <div class="bible-feat-title">Search & Share</div>
+                  <div class="bible-feat-desc">Search any verse, tap to copy or share directly to your group feed.</div>
+                </div>
+              </li>
+              <li class="reveal">
+                <div class="bible-feat-icon">🔡</div>
+                <div>
+                  <div class="bible-feat-title">Adjustable Text Size</div>
+                  <div class="bible-feat-desc">Comfortable reading for everyone — from Small to Extra Large.</div>
+                </div>
+              </li>
+            </ul>
+          </div>
+          <div class="reveal">
+            <div class="bible-visual">
+              <div class="bible-chapter-num">1</div>
+              <div class="bible-book-name">Genesis · KJV</div>
+              <div class="bible-verse">
+                <span class="bible-verse-num">1</span>
+                <span class="bible-verse-text">In the beginning God created the heaven and the earth.</span>
+              </div>
+              <div class="bible-verse">
+                <span class="bible-verse-num">2</span>
+                <span class="bible-verse-text">And the earth was without form, and void; and darkness was upon the face
+                  of the deep.</span>
+              </div>
+              <div class="bible-verse highlighted">
+                <span class="bible-verse-num">3</span>
+                <span class="bible-verse-text">And God said, Let there be light: and there was light.</span>
+              </div>
+              <div class="bible-verse">
+                <span class="bible-verse-num">4</span>
+                <span class="bible-verse-text">And God saw the light, that it was good: and God divided the light from
+                  the darkness.</span>
+              </div>
+              <div class="bible-lang-pills">
+                <span class="bible-lang-pill active">KJV English</span>
+                <span class="bible-lang-pill inactive">RVR1960 Español</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- PRICING / ROLES -->
+    <section class="roles" id="pricing">
+      <div class="container">
+        <p class="section-label reveal">Simple pricing</p>
+        <h2 class="section-title reveal">The right plan for<br /><em>every role</em></h2>
+        <p class="section-desc reveal">Members join free forever. Leaders and churches get a 14-day free trial.</p>
+
+        <div class="roles-grid">
+
+          <!-- Member -->
+          <div class="role-card reveal">
+            <span class="role-badge free">Free Forever</span>
+            <div class="role-title">Member</div>
+            <div class="role-price"><strong>$0</strong> / always free</div>
+            <ul class="role-features">
+              <li>Join your cell with an invite code</li>
+              <li>Post daily devotionals</li>
+              <li>React with 🙏 and comment</li>
+              <li>Track your devotional streak</li>
+              <li>Full Bible reader (KJV + RVR)</li>
+              <li>Push notifications</li>
+              <li>My Devotionals feed filter</li>
+            </ul>
+          </div>
+
+          <!-- Cell Leader -->
+          <div class="role-card featured reveal">
+            <span class="role-badge paid">Most Popular</span>
+            <div class="role-title">Cell Leader</div>
+            <div class="role-price">
+              <strong>$9.99</strong> / month<br />
+              <span style="font-size:12px;color:rgba(255,255,255,0.4);">or $79.99/year — save 33%</span>
+            </div>
+            <ul class="role-features">
+              <li>Everything in Member</li>
+              <li>Create and manage your own cell</li>
+              <li>See who posted their devotional today</li>
+              <li>Post and pin group announcements</li>
+              <li>Monitor streaks and group engagement</li>
+              <li>Generate invite codes for members</li>
+              <li>Leader Dashboard in the app</li>
+            </ul>
+            <div class="role-trial">14-day free trial · No credit card needed</div>
+          </div>
+
+          <!-- Church -->
+          <div class="role-card reveal">
+            <span class="role-badge paid">Church Plan</span>
+            <div class="role-title">Pastor / Admin</div>
+            <div class="role-price">
+              <strong>$49.99</strong> / month<br />
+              <span style="font-size:12px;color:rgba(255,255,255,0.4);">or $249.99/year — save 34%</span>
+            </div>
+            <ul class="role-features">
+              <li>Everything in Cell Leader</li>
+              <li>Manage all cells in your organization</li>
+              <li>View devotional activity church-wide</li>
+              <li>Post church-wide announcements</li>
+              <li>Assign and manage cell leaders</li>
+              <li>Full Admin Panel dashboard</li>
+              <li>Multi-cell oversight and analytics</li>
+            </ul>
+            <div class="role-trial">14-day free trial · No credit card needed</div>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- HOW IT WORKS -->
+    <section class="how" id="how">
+      <div class="container">
+        <p class="section-label reveal" style="text-align:center;">Simple to get started</p>
+        <h2 class="section-title reveal" style="text-align:center;">Up and running<br /><em>in minutes</em></h2>
+
+        <div class="steps-grid">
+          <div class="step reveal">
+            <div class="step-num">1</div>
+            <div class="step-title">Download the App</div>
+            <div class="step-desc">Get GrowBibleGroup free from the App Store. No payment required to create your
+              account.</div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">2</div>
+            <div class="step-title">Join Your Cell</div>
+            <div class="step-desc">Enter the invite code from your cell leader and you're instantly connected to your
+              group.</div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">3</div>
+            <div class="step-title">Share Your Devotional</div>
+            <div class="step-desc">Post what God told you today. Pray for your group, leave comments, and encourage one
+              another.</div>
+          </div>
+          <div class="step reveal">
+            <div class="step-num">4</div>
+            <div class="step-title">Grow Together</div>
+            <div class="step-desc">Build streaks, hit milestones, and watch your entire group deepen their faith — day
+              by day.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- TESTIMONIALS -->
+    <section class="testimonials">
+      <div class="container">
+        <p class="section-label reveal" style="text-align:center;">Community voices</p>
+        <h2 class="section-title reveal" style="text-align:center;">What <em>groups</em> are saying</h2>
+        <div class="testimonials-grid">
+          <div class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">"Our cell group has never been more connected. Knowing everyone is reading the
+              Word daily has transformed our meetings."</div>
+            <div class="testimonial-author">Pastor David L.</div>
+            <div class="testimonial-role">Church of Grace, Texas</div>
+          </div>
+          <div class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">"As a cell leader, the dashboard is a game changer. I can see at a glance who
+              needs encouragement that day."</div>
+            <div class="testimonial-author">Maria S.</div>
+            <div class="testimonial-role">Cell Leader, Miami</div>
+          </div>
+          <div class="testimonial reveal">
+            <div class="stars">★★★★★</div>
+            <div class="testimonial-text">"I love that the Bible is built right in. I read my verse, write my
+              reflection, and share it — all in one app."</div>
+            <div class="testimonial-author">James T.</div>
+            <div class="testimonial-role">Member, New York</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta-section" id="download">
+      <div class="container">
+        <p class="section-label reveal">Ready to grow?</p>
+        <h2 class="section-title reveal">Start your journey<br /><em>today</em></h2>
+        <p class="section-desc reveal">Free for members. 14-day free trial for leaders and churches. No credit card
+          required.</p>
+        <div class="cta-actions reveal">
+          <a href="https://apps.apple.com" target="_blank" rel="noopener">
+            <img src="img/appstoreuswhite.svg" alt="Download on the App Store" style="height:54px;width:auto;" />
+          </a>
+        </div>
+        <p style="margin-top:20px;font-size:13px;color:rgba(255,255,255,0.25);">Android version coming soon</p>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer>
+      <div class="footer-logo">Grow<span>Bible</span>Group</div>
+      <ul class="footer-links">
+        <li><a href="#features">Features</a></li>
+        <li><a href="#pricing">Pricing</a></li>
+        <li><a href="#how">How it works</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="#">Terms of Use</a></li>
+        <li><a href="#">Support</a></li>
+      </ul>
+      <p class="footer-copy">© 2026 GrowBibleGroup · Built with 🙏 for church community</p>
+    </footer>
+
+    <script>
+      // Scroll reveal
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, i) => {
+          if (entry.isIntersecting) {
+            setTimeout(() => {
+              entry.target.classList.add('visible');
+            }, 80);
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1 });
+
+      document.querySelectorAll('.reveal').forEach(el => observer.observe(el));
+
+      // Stagger siblings in grids
+      document.querySelectorAll('.features-grid, .roles-grid, .steps-grid, .testimonials-grid').forEach(grid => {
+        grid.querySelectorAll('.reveal').forEach((card, i) => {
+          card.style.transitionDelay = `${i * 80}ms`;
+        });
+      });
+    </script>
+
+  </body>
+
+</html>
